@@ -14,7 +14,9 @@ function onReady() {
 	}
 
 	function onResults(data) {
-		$('#resultBox').val(data.Search[0].Title)
+		//$('#resultBox').val(data.Search[0].Title)
+		//$('#resultBox').val(data)
+		console.log(data)
 	}
 
 	function searchMovie(query) {
@@ -27,7 +29,8 @@ function onReady() {
 	}
 
 	$('.myButton').click(function(event) {
-		$('#resultBox').val($('#searchBox').val())
+		//$('#resultBox').val($('#searchBox').val())
+		searchMovie($('#searchBox').val());
 		//searchMovie($('#searchBox').val());
 	});
 }	
