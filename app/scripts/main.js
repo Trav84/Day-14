@@ -14,9 +14,19 @@ function onReady() {
 	}
 
 	function onResults(data) {
-		//$('#resultBox').val(data.Search[0].Title)
-		//$('#resultBox').val(data)
-		console.log(data)
+
+		var i = 0;
+		//$('#resultBox').val(data.Search[0].Title);
+		//$('#table1-1').html(data.Search[0].Title);
+		//$('#table1-2').html(data.Search[0].Year);
+
+		for(var key in data.Search) {
+			$('.table').append('<tr> <td>'+data.Search[i].Title+'</td> <td>'+data.Search[i].Year+'</td> </tr>');
+			i++;
+			console.log(data.Search[i]);
+		}
+
+		
 	}
 
 	function searchMovie(query) {
@@ -29,9 +39,8 @@ function onReady() {
 	}
 
 	$('.myButton').click(function(event) {
-		//$('#resultBox').val($('#searchBox').val())
+		//$('#resultBox').val(searchMovie($('#searchBox').val()));
 		searchMovie($('#searchBox').val());
-		//searchMovie($('#searchBox').val());
 	});
 }	
 
