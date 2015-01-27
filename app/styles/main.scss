@@ -1,12 +1,14 @@
 @import 'reset';
 
+
 body {
 	background-color: rgb(14,115,182);
+	font-family: Hammersmith One;
 
 }
 .main {
 	text-align:center;
-	margin-top:4em;
+	margin-top:2em;
 	margin-left: 4em;
 	margin-right: 4em;
 	border: 5px solid black;
@@ -18,11 +20,41 @@ body {
 		margin-top:2em;
 	}
 
+	h1 {
+		font-size:4em;
+	}
+
 	table, th, td {
-    border: 1px solid black;
+    border: 2px solid black;
     border-collapse: collapse;
-    
+    padding: 0.5em 0.5em;
+
+	}
+
 }
+
+.wl {
+
+	h2 {
+		margin-top:1em;
+		border: 2px solid black;
+		border-bottom:0;
+		padding: 0.5em 0.5em;
+		color: black;
+		font-size:2em;
+	}
+}
+
+.watched {
+
+	h2 {
+		margin-top:1em;
+		border: 2px solid black;
+		border-bottom:0;
+		padding: 0.5em 0.5em;
+		color: black;
+		font-size:2em;
+	}
 
 }
 

@@ -15,6 +15,7 @@
 
 
     <!-- build:css styles/main.css -->
+    <link href='http://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
@@ -29,7 +30,7 @@
 
     <section class ='main'>
 
-        <h1> IMDB Search Tool </h1>
+        <h1> IMDB MOVIE SEARCH </h1>
 
         <input type='text' class='input' id='searchBox'>
 
@@ -37,9 +38,41 @@
             Search
         </button>
         
-       <!--  <input type='text' class='input' id='resultBox'> -->
         <div >
+          <!--   <table style="width:100%">
+                <tr> 
+                    <th>Title</th>
+                    <th>Year Released</th> 
+                </tr>
+            </table> -->
+
             <table style="width:100%" class ="table">
+                <tr> 
+                    <th>Title</th>
+                    <th>Year Released</th> 
+                </tr>
+            </table>
+        </div>
+
+        <div class ='wl'>
+            <h2> 
+                To Watch  
+            </h2>
+
+            <table  style="width:100%" class ="watch-list">
+                <tr> 
+                    <th>Title</th>
+                    <th>Year Released</th> 
+                </tr>
+            </table>
+        </div>
+
+        <div class ='watched'>
+            <h2> 
+                Already Watched 
+            </h2>
+
+            <table  style="width:100%" class ="watched-list">
                 <tr> 
                     <th>Title</th>
                     <th>Year Released</th> 

@@ -2,7 +2,6 @@
 $(document).ready(onReady);
 
 function onReady() {
-
 	$.get(
 		'http://www.omdbapi.com/?s=postman',
 		onResultsReceived,
@@ -16,15 +15,26 @@ function onReady() {
 	function onResults(data) {
 
 		var i = 0;
-		//$('#resultBox').val(data.Search[0].Title);
-		//$('#table1-1').html(data.Search[0].Title);
-		//$('#table1-2').html(data.Search[0].Year);
 
 		for(var key in data.Search) {
-			$('.table').append('<tr> <td>'+data.Search[i].Title+'</td> <td>'+data.Search[i].Year+'</td> </tr>');
+			$('.table').append('<tr class="entry"> <td>'+data.Search[i].Title+'</td> <td>'+data.Search[i].Year+'</td> </tr>');
 			i++;
 			console.log(data.Search[i]);
 		}
+
+		$('.entry').click(function() {
+		var movieArray = [];
+		movieArray[0] = $(this).html();
+		$('.watch-list').append('<tr class="added">'+movieArray[0]+'</tr>');
+
+		
+		$('.added').click(function() {
+		var movieArray = [];
+		movieArray[0] = $(this).html();
+		$('.watched-list').append('<tr>'+movieArray[0]+'</tr>');
+		$(this).html('');
+		});		
+	});
 
 		
 	}
@@ -38,9 +48,12 @@ function onReady() {
 		);
 	}
 
-	$('.myButton').click(function(event) {
-		//$('#resultBox').val(searchMovie($('#searchBox').val()));
+	$('.myButton').click(function() {
+		$('.entry').html('');
 		searchMovie($('#searchBox').val());
 	});
+
+	
+	
 }	
 
