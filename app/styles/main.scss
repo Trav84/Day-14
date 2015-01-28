@@ -9,6 +9,7 @@ body {
 .main {
 	text-align:center;
 	margin-top:2em;
+	margin-bottom:2em;
 	margin-left: 4em;
 	margin-right: 4em;
 	border: 5px solid black;
@@ -85,6 +86,7 @@ body {
 }
 
 .myButton {
+	position:relative;
 	-moz-box-shadow:inset 0px 1px 0px 0px #caefab;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #caefab;
 	box-shadow:inset 0px 1px 0px 0px #caefab;
@@ -124,5 +126,10 @@ body {
 	position:relative;
 	top:1px;
 }
+
+.clearSaved {
+	margin-top:2em;
+}
+
 
 

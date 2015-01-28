@@ -1,18 +1,84 @@
 /* jshint devel:true */
 $(document).ready(onReady);
 
-	var rowTemplate = _.template("<tr class=entry data-id=' <%= ref %>' > <td> <%= Title %> </td> <td> <%= Year %> </td> </tr>");
-
 function onReady() {
 
-	var storedToWatch = [];
-	var storedWatched = [];
-	var restoredResults = JSON.parse(localStorage.getItem('storedToWatch'));
+	var rowTemplate = _.template("<tr class=entry data-id=' <%= ref %>' > <td> <%= Title %> </td> <td> <%= Year %> </td> </tr>");
+	var toWatchArray = [];
+	var watchedMovieArray = [];
+	getSavedLists();
 
-	console.log(restoredResults);
+		function postSavedLists(movieArray) {
+
+			if(movieArray == 'toWatchArray') {
+				$.post(
+					'http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB',
+					{
+						storedMovie: toWatchArray,
+			 		},
+			 		'json'
+					);
+				} else {
+
+					$.post(
+					'http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB',
+					{
+						storedMovie: watchedMovieArray,
+			 		},
+			 		'json'
+					);
+				}
+				}		
+
+		 function getSavedLists() {
+
+		 	$.get(
+		 		'http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB',
+		 		function(movies) {
+		 			for(var key in movies) {
+						$('.watch-list').append('<tr> '+movies[key].storedMovie+' </tr>');
+					}
+		 		},
+		 		'json'
+		 		);
+		}
+
+		function deleteSavedLists() {
+
+			var idArray = [];
+
+			$.get(
+		 		'http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB',
+		 		function(movies) {
+		 			for(var key in movies) {
+						idArray.push(movies[key]._id);
+						console.log(movies[key]._id);
+					}
+
+					for(var key in idArray) {
+						console.log('http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB/'+idArray[key]);
+						$.ajax({
+				    		url: 'http://tiny-pizza-server.herokuapp.com/collections/travisMovieDB/'+idArray[key],
+				    		type: 'DELETE',
+						});
+					}
+		 		},
+		 		'json'
+		 	);
+		}
+
+	// local storage code, sitched to Tiny Pizza Server
+	// var storedToWatch = [];
+	// var storedWatched = [];
+	// var restoredResults = JSON.parse(localStorage.getItem('storedToWatch'));
+
 	$('.myButton').click(function() {
 		$('.entry').html('');
 		searchMovie($('#searchBox').val());
+	});
+
+	$('.clearSaved').click(function() {
+		deleteSavedLists();
 	});
 
 	function searchMovie(query) {
@@ -24,30 +90,30 @@ function onReady() {
 			onResults,
 			'json'
 		);
-	}
+	};
 
-	for(var key in restoredResults) {
-		$('.watch-list').append('<tr class="added"> <td>'+restoredResults[key].Title+' </td> <td> '+restoredResults[key].Year+' </td> </tr>');	
-	}
-
-	// // $.get(
-	// // 		'http://www.omdbapi.com/',
-	// // 		{
-	// // 			i: 'tt1104001',
-	// // 		},
-	// // 		onResultsReceived, 
-	// // 		'json'
-	// // 		);
-
-
-	// function onResultsReceived(data) {
-	// 	console.log(data);
+	// local storage code, sitched to Tiny Pizza Server
+	// for(var key in restoredResults) {
+	// 	$('.watch-list').append('<tr class="added"> <td>'+restoredResults[key].Title+' </td> <td> '+restoredResults[key].Year+' </td> </tr>');	
 	// }
 
 	function onResults(data) {
 
 		var x = 0;
+		var idArray = [];
 
+		for(var key in data.Search) {
+			idArray.push(data.Search[key].imdbID);
+		}
+
+		// $.get(
+		// 	'http://www.omdbapi.com/',
+		// 	{
+		// 		i: idArray,
+		// 	},
+		// 	onResults, 
+		// 	'json'
+		// );
 
 		for(var key in data.Search) {
 			data.Search[key].ref = key;
@@ -55,20 +121,23 @@ function onReady() {
 		}
 
 		$('.entry').click(function() {
-			var movieArray = [];
-			movieArray[0] = $(this).html();
-
-			// local storage code
 			
-			var id = $(this).data('id');
-			id = parseInt(id);
+			toWatchArray[0] = $(this).html();
+			watchedMovieArray[0] = $('watched-list').html();
+			postSavedLists(toWatchArray);
+			postSavedLists(watchedMovieArray);
 
-			storedToWatch.push(data.Search[id]);
+			// local storage code, sitched to Tiny Pizza Server
+			
+			// var id = $(this).data('id');
+			// id = parseInt(id);
+
+			// storedToWatch.push(data.Search[id]);
 
 			x++;
-			localStorage.setItem('storedToWatch', JSON.stringify(storedToWatch));
+			//localStorage.setItem('storedToWatch', JSON.stringify(storedToWatch));
 
-			$('.watch-list').append('<tr class="added">'+movieArray[0]+'</tr>');
+			$('.watch-list').append('<tr class="added">'+toWatchArray[0]+'</tr>');
 			$(this).html('');		
 			
 				$('.added').click(function() {
@@ -76,7 +145,6 @@ function onReady() {
 					movieArray[0] = $(this).html();
 					$('.watched-list').append('<tr>'+movieArray[0]+'</tr>');
 					$(this).html('');
-					//$(this).css('text-decoration', 'line-through');
 				});	
 		});	
 	}
@@ -145,6 +213,8 @@ function onReady() {
 	// console.log(travis.attack('kitten'));
 	// console.log(travis.runAway());
 	// console.log(travis.walkOff());
+
+	
 
 }	
 
