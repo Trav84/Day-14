@@ -1,8 +1,23 @@
 {
-  "name": "day-14",
+  "name": "lodash-lang",
   "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "modernizr": "~2.8.1"
-  }
+    "modernizr": "~2.8.1",
+    "lodash": "~3.0.0"
+  },
+  "version": "0.0.0",
+  "homepage": "https://github.com/Trav84/Day-14",
+  "authors": [
+    "Travis Czerw <travis.czerw@gmail.com>"
+  ],
+  "description": "Testing lodash",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
